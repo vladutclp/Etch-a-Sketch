@@ -1,0 +1,15 @@
+
+
+.container{
+	display: grid;
+	width: 50%;
+  	margin: 0 auto;
+  	height: 640px;
+  	width: 640px;
+
+}
+
+
+.cell{
+	border: 1px solid black;
+}
