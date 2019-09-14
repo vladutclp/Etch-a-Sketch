@@ -25,7 +25,7 @@ function createDivs(gridSize){
 			div[i].style.width = `${cellSize}`;
 			div[i].className += "cell";
 			div[i].addEventListener("mouseover", function(e){
-
+			//If the rainbow button was pressed use random colors, else use black	
 			if(rainbowFlag){
 				var randomColor = generateRandomColor();
 				e.target.style.background = randomColor;
@@ -130,13 +130,14 @@ function changeSize(){
 }
 
 
-resize.addEventListener("click", changeSize);
 
 
-init();
 
-var a;
 
+/*
+*	This function generates a random color
+*
+*/
 function generateRandomColor(){
 	var color = "#";
 	var letters = "0123456789ABCDEF";
@@ -148,9 +149,21 @@ function generateRandomColor(){
 	return color;
 }
 
+
+
+/*
+*	This event toggles the rainbowFlag variable used to check wheater the random button was pressed or not
+*
+*/
 rainbow.addEventListener("click", function(){
 	if(rainbowFlag)
 		rainbowFlag = 0;
 	else
 		rainbowFlag = 1;
-})
+});
+
+
+
+resize.addEventListener("click", changeSize);
+
+init();
