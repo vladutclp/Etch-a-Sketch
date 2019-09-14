@@ -17,16 +17,17 @@ function checkMax(n){
 	}
 }
 */
+
 var cellSize = 640/n;
 
-
 function createDivs(gridSize){
-
+		
 
 		for(var i=0; i<gridSize*gridSize; i++){
-
+			
 
 			div[i] = document.createElement("div");
+			
 			container.appendChild(div[i]);
 			div[i].style.height = `${cellSize}`;
 			div[i].style.width = `${cellSize}`;
@@ -35,14 +36,22 @@ function createDivs(gridSize){
 			e.target.style.background = "black";
 			});
 		}
+
+		
+
+
 	
 }
 
 
 function createGrid(size){
+	cellSize = 640/size;
 	createDivs(size);
-	container.style.gridTemplateColumns = `repeat(${Math.sqrt(n*n)}, ${cellSize}px)`;
-	container.style.gridTemplateRows = `repeat(${Math.sqrt(n*n)}, ${cellSize}px)`;
+	
+	console.log(cellSize);
+	container.style.gridTemplateColumns = `repeat(${(size)}, ${cellSize}px)`;
+	container.style.gridTemplateRows = `repeat(${(size)}, ${cellSize}px)`;
+
 }
 
 
@@ -65,13 +74,24 @@ const resize = document.querySelector(".resize");
 
 
 function removeChildrens(){
-	container = "";
+	while (container.hasChildNodes()){
+
+    	container.removeChild(container.lastChild);
+	}
 }
+
+
+
 
 function changeSize(){
 
+	removeChildrens();
+
 	
 	var size = prompt("Enter new size(Max 64)");
+	if(size <= 0)
+		size = prompt("Size must be greater than 0");
+	
 	if(size > MAX_SIZE){
 		size = MAX_SIZE;
 		createGrid(size);
@@ -79,7 +99,14 @@ function changeSize(){
 	else{
 		createGrid(size);
 	}
+
+	
+	
+
+	
+
+	
 }
 
 
-resize.addEventListener("click", removeChildrens);
+resize.addEventListener("click", changeSize);
