@@ -3,13 +3,15 @@ const resize = document.querySelector(".resize");
 const reset = document.querySelector(".reset");
 const rainbow = document.querySelector(".rainbow");
 const black = document.querySelector(".black");
+const grayScale = document.querySelector(".grayscale");
 const MAX_SIZE = 64;	//maximum grid row and column size
 const GRID_DIMENSION = 640; //grid will be 640x640px
 var div = []; //array to store the cells of the grid
 var cellSize;	//size of a single cell from the grid
 
-var rainbowFlag = 0;
-var blackFlag = 1;
+var rainbowFlag = 0, grayScaleFlag = 0, blackFlag = 1;
+var grayTint = 100;
+
 /*
 *	This function creates the divs which will be the cells of the grid.
 *
@@ -28,12 +30,15 @@ function createDivs(gridSize){
 			div[i].className += "cell";
 			div[i].addEventListener("mouseover", function(e){
 			//If the rainbow button was pressed use random colors, else use black	
-			if(rainbowFlag == 1 && blackFlag == 0){
-				var randomColor = generateRandomColor();
-				e.target.style.background = randomColor;
-			}else{
-				e.target.style.background = "black";
-			}
+				if(rainbowFlag == 1) {
+					var randomColor = generateRandomColor();
+					e.target.style.background = randomColor;
+
+				}
+				if(blackFlag == 1){	
+					e.target.style.background = "black";
+
+				}
 			
 			});
 		}
@@ -43,6 +48,10 @@ function createDivs(gridSize){
 
 	
 }
+
+
+
+
 
 /*
 *	This function arranges the divs so it looks like a grid.
@@ -158,28 +167,17 @@ function generateRandomColor(){
 *
 */
 rainbow.addEventListener("click", function(){
-	if(rainbowFlag){
-		rainbowFlag = 0;
-		blackFlag = 1;
-	}
-	else{
-		rainbowFlag = 1;
-		blackFlag = 0;
-	}
+	rainbowFlag = 1;
+	blackFlag = 0;
+	grayScaleFlag = 0;
 });
 
 
 black.addEventListener("click", function(){
-	if(blackFlag){
-		rainbowFlag = 1;
-		blackFlag = 0;
-	}
-	else{
-		rainbowFlag = 0;
-		blackFlag = 1;
-	}
+	blackFlag = 1;
+	rainbowFlag = 0;
+	grayScaleFlag = 0;
 });
-
 
 
 resize.addEventListener("click", changeSize);
